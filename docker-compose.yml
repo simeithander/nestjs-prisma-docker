@@ -1,0 +1,44 @@
+services:
+  api_dev:
+    container_name: nestjs-backend-dev
+    build:
+      dockerfile: Dockerfile
+      context: .
+      # Only will build development stage from our dockerfile
+      target: development
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres_dev:5432/${POSTGRES_DB}?schema=public
+    # Run a command against the development stage of the image
+    command: yarn start:dev
+    ports:
+      - 3001:3000
+    depends_on:
+      - postgres_dev
+    networks:
+      - nestjs_dev
+  postgres_dev:
+    container_name: nestjs-postgres-dev
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '5433:5432'
+    volumes:
+      - nestjs-postgres-dev:/var/lib/postgresql/data
+    networks:
+      - nestjs_dev
+
+volumes:
+  nestjs-postgres-dev:
+    external: false
+
+networks:
+  nestjs_dev:
+    external: false
