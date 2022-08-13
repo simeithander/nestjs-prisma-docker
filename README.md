@@ -92,6 +92,10 @@ single command: `docker compose up`.
 
 ## For development
 
+Create .env
+
+``cp .env.example .env``
+
 Build and Run:
 
 ``cd docker-scrips/ && ./build.sh``
@@ -109,6 +113,10 @@ Start:
 ``cd docker-scrips/ && ./start.sh``
 
 ## For Production
+
+Create .env.prod
+
+``cp .env.example .env.prod``
 
 Build and Run:
 
