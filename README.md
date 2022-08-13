@@ -112,6 +112,10 @@ Start:
 
 ``cd docker-scrips/ && ./start.sh``
 
+Prisma migrate:
+
+``yarn migrate:dev``
+
 ## For Production
 
 Create .env.prod
@@ -133,3 +137,7 @@ Stop:
 Start: 
 
 ``cd docker-scrips/ && ./prod_start.sh``
+
+Prisma migrate:
+
+``yarn migrate:prod``
